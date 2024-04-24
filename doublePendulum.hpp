@@ -50,7 +50,7 @@ public:
 			shape.setOrigin(size.x * 0.5, 0);
 
 			pos.x = 400;
-			pos.y = 200;
+			pos.y = 400;
 			shape.setPosition(pos);
 
 			shape.setFillColor(sf::Color::Black);
@@ -85,7 +85,7 @@ public:
 		int count = 0;
 	};
 
-	Line line[2];
+	Line line;
 
 
 	DoublePendulum();

@@ -11,8 +11,7 @@ DoublePendulum::DoublePendulum() {
 
 void DoublePendulum::draw(sf::RenderWindow& window) {
 
-	if (line[0].count != 0) window.draw(&line[0].shape[0], line[0].count, sf::Lines);
-	if (line[1].count != 0) window.draw(&line[1].shape[0], line[1].count, sf::Lines);
+	if (line.count != 0) window.draw(&line.shape[0], line.count, sf::Lines);
 
 	for (int i = 0; i < 2; i++) {
 		window.draw(box[i].shape);
@@ -71,11 +70,8 @@ void DoublePendulum::logic() {
 
 	//SET LINE POS
 
-	line[0].shape.push_back(sf::Vertex(circle[1].pos, sf::Color::White));
-	line[0].count++;
-
-	if (line[0].count != 1) {
-		line[1].shape.push_back(sf::Vertex(circle[1].pos, sf::Color::White));
-		line[1].count++;
-	}
+	do {
+		line.shape.push_back(sf::Vertex(circle[1].pos, sf::Color::White));
+		line.count++;
+	} while (line.count % 2 == 0);
 }

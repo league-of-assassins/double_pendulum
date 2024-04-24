@@ -65,17 +65,18 @@ public:
 
 	const double M_PI = 3.14159265359;
 	const double radToDeg = 180 / M_PI;
+	const double degToRad = 1.0 / radToDeg;
 	const double g = 9.81;
 
 	const double L[PENDULUM_TOTAL] = { 1, 1 };  // Length of the pendulum arm
 	const double m[PENDULUM_TOTAL] = { 50, 20 }; // Mass
 	const double M = m[0] + m[1];
 
-	double theta[PENDULUM_TOTAL] = { 170 * (1 / radToDeg), 170 * (1 / radToDeg) }; // Initial angular displacement (radians)
-	double velo[PENDULUM_TOTAL] = { 0, 0 }; // Initial angular velocity (radians)
+	double theta[PENDULUM_TOTAL] = { 130 * degToRad, 170 * degToRad }; // Initial angular displacement (radians)
+	double velo[PENDULUM_TOTAL] = { 0, 0 }; // Initial angular velocity (radians / dt)
 
 	const double fps = 144.0;
-	const double speed = 1.0; //Animation speed
+	const double speed = 1.0; // Animation speed
 	const double dt = speed / fps; // Time step for simulation (deltaTime)
 
 

@@ -23,9 +23,6 @@ private:
 
 	sf::Event event;
 
-	sf::Vector2i mousePos;
-	bool mousePressed = false;
-
 	bool paused = false;
 
 

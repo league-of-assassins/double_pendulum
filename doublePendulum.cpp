@@ -57,6 +57,8 @@ void DoublePendulum::formula() {
 
 void DoublePendulum::logic() {
 
+	//CALCULATE
+
 	formula();
 
 

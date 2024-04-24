@@ -23,12 +23,6 @@ void App::events() {
 				paused = !paused;
 			}
 		}
-
-		else if (event.type == sf::Event::MouseButtonPressed) {
-			if (event.key.code == sf::Mouse::Left) {
-				mousePressed = true;
-			}
-		}
 	}
 }
 
@@ -56,8 +50,6 @@ App::App() {
 	while (window.isOpen())
 	{
 		events();
-
-		mousePos = sf::Mouse::getPosition(window);
 
 		if (!paused) doublePendulum.logic();
 

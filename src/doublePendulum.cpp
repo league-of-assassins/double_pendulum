@@ -1,6 +1,7 @@
 
 #include "doublePendulum.hpp"
 
+
 DoublePendulum::DoublePendulum() {
 
 	box[0].shape.setRotation(theta[0] * radToDeg);
@@ -9,36 +10,38 @@ DoublePendulum::DoublePendulum() {
 	setPos();
 }
 
+
 void DoublePendulum::draw(sf::RenderWindow& window) {
 
-	if (line.count != 0) window.draw(&line.shape[0], line.count, sf::Lines);
+	if (line.size()) window.draw(&line[0], line.size(), sf::Lines);
 
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < PENDULUM_TOTAL; i++) {
 		window.draw(box[i].shape);
 		window.draw(circle[i].shape);
 	}
 }
 
 
-void DoublePendulum::setCirclePos(const int& i) {
 
-	const float radians = theta[i] + M_PI * 0.5;
 
-	circle[i].pos.x = box[i].pos.x + box[i].size.y * cos(radians);
-	circle[i].pos.y = box[i].pos.y + box[i].size.y * sin(radians);
+sf::Vector2f DoublePendulum::findEndPoint(const sf::Vector2f pos, const float size, const double radians) {
 
-	circle[i].shape.setPosition(circle[i].pos);
+	return sf::Vector2f(pos.x + size * cos(radians), pos.y + size * sin(radians));
 }
+
 
 void DoublePendulum::setPos() {
 
-	setCirclePos(0);
+	circle[0].pos = findEndPoint(box[0].pos, box[0].size.y, theta[0] + PI * 0.5);
+	circle[0].shape.setPosition(circle[0].pos);
 
 	box[1].pos = circle[0].pos;
 	box[1].shape.setPosition(box[1].pos);
 
-	setCirclePos(1);
+	circle[1].pos = findEndPoint(box[1].pos, box[1].size.y, theta[1] + PI * 0.5);
+	circle[1].shape.setPosition(circle[1].pos);
 }
+
 
 void DoublePendulum::formula() {
 
@@ -55,7 +58,8 @@ void DoublePendulum::formula() {
 	theta[1] += velo[1] * dt;
 }
 
-void DoublePendulum::logic() {
+
+void DoublePendulum::update() {
 
 	//CALCULATE
 
@@ -73,7 +77,6 @@ void DoublePendulum::logic() {
 	//SET LINE POS
 
 	do {
-		line.shape.push_back(sf::Vertex(circle[1].pos, sf::Color::White));
-		line.count++;
-	} while (line.count % 2 == 0);
+		line.push_back(sf::Vertex(circle[1].pos, sf::Color::White));
+	} while (line.size() % 2 == 0);
 }
